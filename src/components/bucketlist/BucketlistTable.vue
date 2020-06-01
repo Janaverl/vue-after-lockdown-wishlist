@@ -1,10 +1,8 @@
 <template>
     <div class="card-body">
-        <div class="progress card-title">
-            <div class="progress-bar progress-bar-striped bg-success" style="width: 10%">
-                1
-            </div>
-        </div>
+
+        <progressbar></progressbar>
+
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -18,19 +16,21 @@
                 <bucketlist-item-create></bucketlist-item-create>  
             </tbody>
         </table>
+        
     </div>
 </template>
 
 <script>
     import BucketlistItem from './BucketlistItem.vue'
     import BucketlistItemCreate from './BucketlistItemCreate.vue'
-
+    import Progressbar from './Progressbar.vue'
 
     export default {
         name: 'BucketlistTable',
         components: {
             BucketlistItem,
             BucketlistItemCreate,
+            Progressbar
         }
     }
 </script>
