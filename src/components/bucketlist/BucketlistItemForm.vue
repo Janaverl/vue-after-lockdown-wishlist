@@ -7,7 +7,7 @@
                     'form-control',
                     {'is-invalid': isInvalid.name}
                 ]"
-                v-model="newItem.name"
+                v-model="_this.item.name"
             >
         </td>
         <td>
@@ -15,20 +15,20 @@
                 type="text"
                 :class="[
                     'form-control',
-                    {'is-invalid': isInvalid.name}
+                    {'is-invalid': isInvalid.description}
                 ]"
-                v-model="newItem.description"
+                v-model="_this.item.description"
             >
         </td>
         <td>
             <a class="add text-success p-3"
-                @click="handleInput()"
+                @click="handleNewInput()"
             >
                 <i class="far fa-plus-square"></i>
             </a>
             <a 
                 class="delete text-danger p-3"
-                @click="discardInput()"
+                @click="handleDiscardInput()"
             >
                 <i class="far fa-trash-alt"></i>
             </a>
@@ -40,13 +40,24 @@
     import { BucketlistEventBus } from '../../main.js';
 
     export default {
-        name: 'BucketlistItemCreate',
+        name: 'BucketlistItemForm',
+        props: {
+            _this: {
+                type: Object,
+                default: function () {
+                    return {
+                        item: {
+                            name: '',
+                            description: ''
+                        },
+                        status: 'add',
+                        index: null
+                    };
+                }
+            },
+        },
         data: function() {
             return {
-                newItem: {
-                    name: '',
-                    description: ''
-                },
                 isInvalid: {
                     name: false,
                     description: false
@@ -54,18 +65,28 @@
             }
         },
         methods: {
-            discardInput() {
-                BucketlistEventBus.$emit('closeNewItem');
+            handleDiscardInput() {
+                if(this._this.index == null){
+                    this.closeItem();
+                    return;
+                }
+                console.log('just did handleDiscardInput in Form');
+                this.removeItem(this._this.index);
             },
-            handleInput() {
-                this.validateItem(this.newItem, this.isInvalid);
+            handleNewInput() {
+                this.validateItem(this._this.item, this.isInvalid);
                 if(this.isInvalid.name || this.isInvalid.description){
                     return;
                 }
-                this.addItem(this.newItem);
+
+                if(this._this.index == null){
+                    this.addItem(this._this.item);
+                    return;
+                }
+
+                this.replaceItem(this._this.item, this._this.index);
             },
             isValidField(field){
-                console.log(field);
                 if(field == '' || field == null){
                     return false; 
                 }
@@ -77,6 +98,15 @@
             }, 
             addItem(item) {
                 BucketlistEventBus.$emit('addNewItem', item);
+            },
+            replaceItem(item, ind) {
+                BucketlistEventBus.$emit('replaceItem', {'item': item, 'ind': ind});
+            },
+            closeItem() {
+                BucketlistEventBus.$emit('closeNewItem');
+            },
+            removeItem(ind) {
+                BucketlistEventBus.$emit('removeItemFromList', ind);
             }
         }
     }

@@ -9,15 +9,15 @@
         </thead>
         <tbody>
 
-            <bucketlist-item-create
+            <bucketlist-item-form
                 v-if="showInputForNew"
-            ></bucketlist-item-create>
+            ></bucketlist-item-form>
 
             <bucketlist-item
                 v-for="(item, index) in items"
                 :key="index"
                 :item="item"
-                :ind="index"
+                :index="index"
             ></bucketlist-item>
 
         </tbody>
@@ -26,7 +26,7 @@
 
 <script>
     import BucketlistItem from './BucketlistItem.vue'
-    import BucketlistItemCreate from './BucketlistItemCreate.vue'
+    import BucketlistItemForm from './BucketlistItemForm.vue'
     import { BucketlistEventBus } from '../../main.js';
 
     export default {
@@ -62,9 +62,14 @@
                 vm.isCreatingNewItem(false);
             });
             BucketlistEventBus.$on('addNewItem', (data) => {
-                const itemToAdd = Object.assign({}, data)
+                const itemToAdd = Object.assign({}, data);
                 vm.items.unshift(itemToAdd);
                 vm.isCreatingNewItem(false);
+            });
+            BucketlistEventBus.$on('replaceItem', (data) => {
+                const itemToAdd = Object.assign({}, data.item);
+                console.log(itemToAdd);
+                vm.items.splice(data.ind, 1, itemToAdd);
             });
             BucketlistEventBus.$on('removeItemFromList', (index) => {
                 vm.items.splice(index, 1);
@@ -72,7 +77,7 @@
         },
         components: {
             BucketlistItem,
-            BucketlistItemCreate
+            BucketlistItemForm
         }
     }
 </script>

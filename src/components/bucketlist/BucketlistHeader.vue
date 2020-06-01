@@ -37,8 +37,8 @@
             }
         },
         created() {
-            BucketlistEventBus.$on('toggleNewButton', (isCreating) => {
-                this.disableAddNew = isCreating;
+            BucketlistEventBus.$on('toggleNewButton', (disable) => {
+                this.disableAddNew = disable;
             });
             BucketlistEventBus.$on('allowAdding', (isAllowedToAddNew) => {
                 this.disableAddNew = !isAllowedToAddNew;
