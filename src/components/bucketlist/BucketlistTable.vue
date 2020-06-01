@@ -1,39 +1,32 @@
 <template>
-    <div class="card-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 20%">name</th>
+                <th style="width: 60%">description</th>
+                <th style="width: 20%">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
 
-        <progressbar></progressbar>
+            <bucketlist-item-create
+                v-if="showInputForNew"
+            ></bucketlist-item-create>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width: 20%">name</th>
-                    <th style="width: 60%">description</th>
-                    <th style="width: 20%">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
+            <bucketlist-item
+                v-for="(item, index) in items"
+                :key="index"
+                :item="item"
+                :ind="index"
+            ></bucketlist-item>
 
-                <bucketlist-item
-                    v-for="(item, index) in items"
-                    :key="index"
-                    :item="item"
-                    :ind="index"
-                ></bucketlist-item>
-
-                <bucketlist-item-create
-                    v-if="showInputForNew"
-                ></bucketlist-item-create>  
-
-            </tbody>
-        </table>
-        
-    </div>
+        </tbody>
+    </table>
 </template>
 
 <script>
     import BucketlistItem from './BucketlistItem.vue'
     import BucketlistItemCreate from './BucketlistItemCreate.vue'
-    import Progressbar from './Progressbar.vue'
     import { BucketlistEventBus } from '../../main.js';
 
     export default {
@@ -70,7 +63,7 @@
             });
             BucketlistEventBus.$on('addNewItem', (data) => {
                 const itemToAdd = Object.assign({}, data)
-                vm.items.push(itemToAdd);
+                vm.items.unshift(itemToAdd);
                 vm.isCreatingNewItem(false);
             });
             BucketlistEventBus.$on('removeItemFromList', (index) => {
@@ -79,8 +72,7 @@
         },
         components: {
             BucketlistItem,
-            BucketlistItemCreate,
-            Progressbar
+            BucketlistItemCreate
         }
     }
 </script>

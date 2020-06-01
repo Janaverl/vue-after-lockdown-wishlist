@@ -4,13 +4,18 @@
         <bucketlist-header
           :title = bucketlistTitle
         ></bucketlist-header>
-        <bucketlist-table></bucketlist-table>
+        <div class="card-body">
+          <progressbar></progressbar>
+          <bucketlist-table></bucketlist-table>
+
+        </div>
       </diV>
     </div>
 </template>
 
 <script>
   import BucketlistHeader from './BucketlistHeader.vue'
+    import Progressbar from './Progressbar.vue'
   import BucketlistTable from './BucketlistTable.vue'
 
   export default {
@@ -22,7 +27,8 @@
     },
     components: {
       BucketlistHeader,
-      BucketlistTable
+      BucketlistTable,
+      Progressbar
     }
   }
 </script>
