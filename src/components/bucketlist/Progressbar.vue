@@ -28,8 +28,8 @@
         name: 'Progressbar',
         data: function() {
             return {
-                counter: 1,
-                percentage: 10
+                counter: 2,
+                percentage: 20
             };
         },
         watch: {

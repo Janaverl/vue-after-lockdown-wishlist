@@ -33,13 +33,12 @@
         },
         methods: {
             addItemCreate() {
-                this.isAdding = true;
                 BucketlistEventBus.$emit('openNewItem');
             }
         },
         created() {
-            BucketlistEventBus.$on('closeNewItem', () => {
-                this.isAdding = false;
+            BucketlistEventBus.$on('toggleNewButton', (isCreating) => {
+                this.isAdding = isCreating;
             });
         },
     }

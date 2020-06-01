@@ -21,7 +21,7 @@
                 ></bucketlist-item>
 
                 <bucketlist-item-create
-                    v-if="isCreatingNewItem"
+                    v-if="showInputForNew"
                 ></bucketlist-item-create>  
 
             </tbody>
@@ -50,15 +50,28 @@
                         description: 'een avondje doorzakken op café',
                     }
                 ],
-                isCreatingNewItem: false
+                showInputForNew: false
+            }
+        },
+        methods: {
+            isCreatingNewItem(isCreating) {
+                BucketlistEventBus.$emit('toggleNewButton', isCreating);
+                this.showInputForNew = isCreating;
             }
         },
         created() {
+            const vm = this;
+
             BucketlistEventBus.$on('openNewItem', () => {
-                this.isCreatingNewItem = true;
+                vm.isCreatingNewItem(true);
             });
             BucketlistEventBus.$on('closeNewItem', () => {
-                this.isCreatingNewItem = false;
+                vm.isCreatingNewItem(false);
+            });
+            BucketlistEventBus.$on('addNewItem', (data) => {
+                const itemToAdd = Object.assign({}, data)
+                vm.items.push(itemToAdd);
+                vm.isCreatingNewItem(false);
             });
         },
         components: {
