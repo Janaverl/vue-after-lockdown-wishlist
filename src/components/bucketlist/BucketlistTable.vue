@@ -12,8 +12,18 @@
                 </tr>
             </thead>
             <tbody>
-                <bucketlist-item></bucketlist-item>  
-                <bucketlist-item-create></bucketlist-item-create>  
+
+                <bucketlist-item
+                    v-for="(item, index) in items"
+                    :key="index"
+                    :item="item"
+                    :ind="index"
+                ></bucketlist-item>
+
+                <bucketlist-item-create
+                    v-if="isCreatingNewItem"
+                ></bucketlist-item-create>  
+
             </tbody>
         </table>
         
@@ -24,9 +34,33 @@
     import BucketlistItem from './BucketlistItem.vue'
     import BucketlistItemCreate from './BucketlistItemCreate.vue'
     import Progressbar from './Progressbar.vue'
+    import { BucketlistEventBus } from '../../main.js';
 
     export default {
         name: 'BucketlistTable',
+        data: function() {
+            return {
+                items: [
+                    {
+                        name: 'example 1',
+                        description: 'Mijn goede vriendin Jana uitnodigen voor een BBQ.',
+                    },
+                    {
+                        name: 'example 2',
+                        description: 'een avondje doorzakken op café',
+                    }
+                ],
+                isCreatingNewItem: false
+            }
+        },
+        created() {
+            BucketlistEventBus.$on('openNewItem', () => {
+                this.isCreatingNewItem = true;
+            });
+            BucketlistEventBus.$on('closeNewItem', () => {
+                this.isCreatingNewItem = false;
+            });
+        },
         components: {
             BucketlistItem,
             BucketlistItemCreate,
