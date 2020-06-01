@@ -3,7 +3,7 @@
         <td
             class="font-weight-bold"
         >
-            {{ind}} {{item.name}}
+            {{ind+1}}. {{item.name}}
         </td>
         <td>
             {{item.description}}

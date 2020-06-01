@@ -9,7 +9,7 @@
             <button
                 type="button"
                 class="btn btn-success add-new float-right"
-                :disabled="isAdding"
+                :disabled="disableAddNew"
                 @click="addItemCreate"
             >
                 <i class="fa fa-plus"></i> Add New
@@ -25,7 +25,7 @@
         name: 'BucketlistHeader',
         data: function() {
             return {
-                isAdding: false
+                disableAddNew: false
             };
         },
         props: {
@@ -38,7 +38,10 @@
         },
         created() {
             BucketlistEventBus.$on('toggleNewButton', (isCreating) => {
-                this.isAdding = isCreating;
+                this.disableAddNew = isCreating;
+            });
+            BucketlistEventBus.$on('allowAdding', (isAllowedToAddNew) => {
+                this.disableAddNew = !isAllowedToAddNew;
             });
         },
     }

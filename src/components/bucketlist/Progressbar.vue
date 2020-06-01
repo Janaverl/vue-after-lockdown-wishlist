@@ -6,37 +6,51 @@
             <div
                 class="progress-bar progress-bar-striped bg-success"
                 :style="{width: percentage +'%'}"
-                >
+            >
                     {{counter}}
             </div>
         </div>
-        <button
-            @click = "counter++"
-        >
-            increase
-        </button>
-        <button
-            @click = "counter--"
-        >
-            decrease
-        </button>
     </div>
 </template>
 
 <script>
+    import { BucketlistEventBus } from '../../main.js';
+    
     export default {
         name: 'Progressbar',
         data: function() {
             return {
                 counter: 2,
-                percentage: 20
+                percentage: 20,
+                isAddingAllowed: true
             };
+        },
+        methods: {
+            hasReachedMaximum(counter, max = 10) {
+                if(counter >= max){
+                    return true;
+                }
+                return false;
+            }
         },
         watch: {
             counter: function (value) { 
                 this.percentage = (value * 10);
+                this.isAddingAllowed = !this.hasReachedMaximum(this.counter);
+            },
+            isAddingAllowed: function(isAllowed) {
+                BucketlistEventBus.$emit('allowAdding', isAllowed);
             }
         },
+        created() {
+            const vm = this;
+            BucketlistEventBus.$on('addNewItem', () => {
+                if(!vm.isAddingAllowed){
+                    return;
+                }
+                vm.counter = vm.counter + 1;
+            });
+        }
     }
 </script>
 
