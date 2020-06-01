@@ -50,6 +50,12 @@
                 }
                 vm.counter = vm.counter + 1;
             });
+            BucketlistEventBus.$on('removeItemFromList', () => {
+                if(this.counter <= 0){
+                    return;
+                }
+                vm.counter = vm.counter - 1;
+            });
         }
     }
 </script>

@@ -9,10 +9,15 @@
             {{item.description}}
         </td>
         <td>
-            <a class="edit text-warning p-3">
+            <a
+                class="edit text-warning p-3"
+            >
                 <i class="far fa-edit"></i>
             </a>
-            <a class="delete text-danger p-3">
+            <a
+                class="delete text-danger p-3"
+                @click="removeItem(ind)"
+            >
                 <i class="far fa-trash-alt"></i>
             </a>
         </td>
@@ -20,11 +25,18 @@
 </template>
 
 <script>
+    import { BucketlistEventBus } from '../../main.js';
+
     export default {
         name: 'BucketlistItem',
         props: {
             item: Object,
             ind: Number
+        },
+        methods: {
+            removeItem(index) {
+                BucketlistEventBus.$emit('removeItemFromList', index);
+            }
         }
     }
 </script>

@@ -73,6 +73,9 @@
                 vm.items.push(itemToAdd);
                 vm.isCreatingNewItem(false);
             });
+            BucketlistEventBus.$on('removeItemFromList', (index) => {
+                vm.items.splice(index, 1);
+            });
         },
         components: {
             BucketlistItem,
