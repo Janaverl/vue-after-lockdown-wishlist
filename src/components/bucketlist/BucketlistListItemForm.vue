@@ -40,7 +40,7 @@
     import { BucketlistEventBus } from '../../main.js';
 
     export default {
-        name: 'BucketlistItemForm',
+        name: 'BucketlistListItemForm',
         props: {
             _this: {
                 type: Object,

@@ -23,7 +23,7 @@
             </a>
         </td>
     </tr>
-    <bucketlist-item-form v-else
+    <bucketlist-list-item-form v-else
         :_this="{
                 item: {
                     name: item.name,
@@ -31,15 +31,15 @@
                 },
                 index: index
             }"
-    ></bucketlist-item-form>
+    ></bucketlist-list-item-form>
 </template>
 
 <script>
-    import BucketlistItemForm from './BucketlistItemForm.vue'
+    import BucketlistListItemForm from './BucketlistListItemForm.vue'
     import { BucketlistEventBus } from '../../main.js';
 
     export default {
-        name: 'BucketlistItem',
+        name: 'BucketlistListItemRow',
         props: {
             item: Object,
             index: Number
@@ -83,7 +83,7 @@
             });
         },
         components: {
-            BucketlistItemForm
+            BucketlistListItemForm
         }
     }
 </script>

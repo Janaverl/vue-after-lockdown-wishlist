@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import Bucketlist from './bucketlist/Main.vue'
+  import Bucketlist from './bucketlist/Bucketlist.vue'
 
   export default {
     name: 'AppContent',

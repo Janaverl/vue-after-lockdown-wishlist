@@ -9,28 +9,28 @@
         </thead>
         <tbody>
 
-            <bucketlist-item-form
+            <bucketlist-list-item-form
                 v-if="showInputForNew"
-            ></bucketlist-item-form>
+            ></bucketlist-list-item-form>
 
-            <bucketlist-item
+            <bucketlist-list-item-row
                 v-for="(item, index) in items"
                 :key="index"
                 :item="item"
                 :index="index"
-            ></bucketlist-item>
+            ></bucketlist-list-item-row>
 
         </tbody>
     </table>
 </template>
 
 <script>
-    import BucketlistItem from './BucketlistItem.vue'
-    import BucketlistItemForm from './BucketlistItemForm.vue'
+    import BucketlistListItemRow from './BucketlistListItemRow.vue'
+    import BucketlistListItemForm from './BucketlistListItemForm.vue'
     import { BucketlistEventBus } from '../../main.js';
 
     export default {
-        name: 'BucketlistTable',
+        name: 'BucketlistList',
         data: function() {
             return {
                 items: [
@@ -76,8 +76,8 @@
             });
         },
         components: {
-            BucketlistItem,
-            BucketlistItemForm
+            BucketlistListItemRow,
+            BucketlistListItemForm
         }
     }
 </script>

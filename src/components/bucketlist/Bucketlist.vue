@@ -6,10 +6,10 @@
           :isNewActionAllowed = isNewActionAllowed
         ></bucketlist-header>
         <div class="card-body">
-          <progressbar></progressbar>
-          <bucketlist-table
+          <bucketlist-progressbar></bucketlist-progressbar>
+          <bucketlist-list
             :isNewActionAllowed = isNewActionAllowed
-          ></bucketlist-table>
+          ></bucketlist-list>
 
         </div>
       </diV>
@@ -18,8 +18,8 @@
 
 <script>
   import BucketlistHeader from './BucketlistHeader.vue'
-  import Progressbar from './Progressbar.vue'
-  import BucketlistTable from './BucketlistTable.vue'
+  import BucketlistProgressbar from './BucketlistProgressbar.vue'
+  import BucketlistList from './BucketlistList.vue'
 
   export default {
     name: 'Bucketlist',
@@ -31,8 +31,8 @@
     },
     components: {
       BucketlistHeader,
-      BucketlistTable,
-      Progressbar
+      BucketlistList,
+      BucketlistProgressbar
     }
   }
 </script>
