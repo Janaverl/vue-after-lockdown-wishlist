@@ -1,17 +1,20 @@
 <template>
   <div class="row justify-content-center">
       <div class="col-sm-10 col-md-8 col-md-6 card">
+
         <bucketlist-header
           :title = bucketlistTitle
           :isNewActionAllowed = isNewActionAllowed
         ></bucketlist-header>
+
         <div class="card-body">
+
           <bucketlist-progressbar></bucketlist-progressbar>
-          <bucketlist-list
-            :isNewActionAllowed = isNewActionAllowed
-          ></bucketlist-list>
+
+          <bucketlist-list></bucketlist-list>
 
         </div>
+
       </diV>
     </div>
 </template>
@@ -25,8 +28,7 @@
     name: 'Bucketlist',
     data: function() {
       return {
-        bucketlistTitle: '10 things I will do when Lockdown COVID-19 is over.',
-        isNewActionAllowed: true
+        bucketlistTitle: '10 things I will do when Lockdown COVID-19 is over.'
       };
     },
     components: {

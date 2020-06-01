@@ -1,5 +1,6 @@
 <template>
     <table class="table table-bordered">
+
         <thead>
             <tr>
                 <th style="width: 20%">name</th>
@@ -7,14 +8,13 @@
                 <th style="width: 20%">Actions</th>
             </tr>
         </thead>
+
         <tbody>
 
-            <bucketlist-list-item-form
-                v-if="showInputForNew"
+            <bucketlist-list-item-form v-if="showEmptyInput"
             ></bucketlist-list-item-form>
 
-            <bucketlist-list-item-row
-                v-for="(item, index) in items"
+            <bucketlist-list-item-row v-for="(item, index) in items"
                 :key="index"
                 :item="item"
                 :index="index"
@@ -43,34 +43,51 @@
                         description: 'een avondje doorzakken op café',
                     }
                 ],
-                showInputForNew: false
+                showEmptyInput: false
             }
         },
         methods: {
-            isCreatingNewItem(isCreating) {
-                BucketlistEventBus.$emit('toggleNewButton', isCreating);
-                this.showInputForNew = isCreating;
+            copyObject(data){
+                return Object.assign({}, data);
+            },
+            disableNewButton(){
+                BucketlistEventBus.$emit('toggleNewButton', true);
+            },
+            enableNewButton(){
+                BucketlistEventBus.$emit('toggleNewButton', false);
+            },
+            closeNewItem(){
+                this.showEmptyInput = false;
+            },
+            openNewItem(){
+                this.showEmptyInput = true;
             }
         },
         created() {
             const vm = this;
 
             BucketlistEventBus.$on('openNewItem', () => {
-                vm.isCreatingNewItem(true);
+                vm.openNewItem();
+                vm.disableNewButton();
             });
+            
             BucketlistEventBus.$on('closeNewItem', () => {
-                vm.isCreatingNewItem(false);
+                vm.closeNewItem();
+                vm.enableNewButton();
             });
+
             BucketlistEventBus.$on('addNewItem', (data) => {
-                const itemToAdd = Object.assign({}, data);
-                vm.items.unshift(itemToAdd);
-                vm.isCreatingNewItem(false);
+                const newItem = this.copyObject(data);
+                vm.items.unshift(newItem);
+                vm.closeNewItem();
+                vm.enableNewButton();
             });
+
             BucketlistEventBus.$on('replaceItem', (data) => {
-                const itemToAdd = Object.assign({}, data.item);
-                console.log(itemToAdd);
-                vm.items.splice(data.ind, 1, itemToAdd);
+                const newItem = this.copyObject(data.item);
+                vm.items.splice(data.index, 1, newItem);
             });
+
             BucketlistEventBus.$on('removeItemFromList', (index) => {
                 vm.items.splice(index, 1);
             });

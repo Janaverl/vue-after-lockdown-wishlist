@@ -5,7 +5,7 @@
                 type="text"
                 :class="[
                     'form-control',
-                    {'is-invalid': isInvalid.name}
+                    {'is-invalid': !isValid.name}
                 ]"
                 v-model="_this.item.name"
             >
@@ -15,7 +15,7 @@
                 type="text"
                 :class="[
                     'form-control',
-                    {'is-invalid': isInvalid.description}
+                    {'is-invalid': !isValid.description}
                 ]"
                 v-model="_this.item.description"
             >
@@ -50,7 +50,6 @@
                             name: '',
                             description: ''
                         },
-                        status: 'add',
                         index: null
                     };
                 }
@@ -58,9 +57,9 @@
         },
         data: function() {
             return {
-                isInvalid: {
-                    name: false,
-                    description: false
+                isValid: {
+                    name: true,
+                    description: true
                 }
             }
         },
@@ -70,12 +69,11 @@
                     this.closeItem();
                     return;
                 }
-                console.log('just did handleDiscardInput in Form');
                 this.removeItem(this._this.index);
             },
             handleNewInput() {
-                this.validateItem(this._this.item, this.isInvalid);
-                if(this.isInvalid.name || this.isInvalid.description){
+                this.validateItem(this._this.item, this.isValid);
+                if(!this.isValid.name || !this.isValid.description){
                     return;
                 }
 
@@ -92,21 +90,21 @@
                 }
                 return true;
             },
-            validateItem(item, invalidProp){
-                invalidProp.name = !this.isValidField(item.name);
-                invalidProp.description = !this.isValidField(item.description);
+            validateItem(item, validProp){
+                validProp.name = this.isValidField(item.name);
+                validProp.description = this.isValidField(item.description);
             }, 
             addItem(item) {
                 BucketlistEventBus.$emit('addNewItem', item);
             },
-            replaceItem(item, ind) {
-                BucketlistEventBus.$emit('replaceItem', {'item': item, 'ind': ind});
+            replaceItem(item, index) {
+                BucketlistEventBus.$emit('replaceItem', {'item': item, 'index': index});
             },
             closeItem() {
                 BucketlistEventBus.$emit('closeNewItem');
             },
-            removeItem(ind) {
-                BucketlistEventBus.$emit('removeItemFromList', ind);
+            removeItem(index) {
+                BucketlistEventBus.$emit('removeItemFromList', index);
             }
         }
     }

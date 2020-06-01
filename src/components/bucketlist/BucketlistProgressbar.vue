@@ -17,7 +17,7 @@
     import { BucketlistEventBus } from '../../main.js';
     
     export default {
-        name: 'Progressbar',
+        name: 'BucketlistProgressbar',
         data: function() {
             return {
                 counter: 2,
@@ -44,12 +44,14 @@
         },
         created() {
             const vm = this;
+
             BucketlistEventBus.$on('addNewItem', () => {
                 if(!vm.isAddingAllowed){
                     return;
                 }
                 vm.counter = vm.counter + 1;
             });
+            
             BucketlistEventBus.$on('removeItemFromList', () => {
                 if(this.counter <= 0){
                     return;

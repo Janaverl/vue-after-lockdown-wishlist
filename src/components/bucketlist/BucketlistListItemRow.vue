@@ -11,7 +11,7 @@
         <td>
             <a
                 class="edit text-warning p-3"
-                @click="editItem()"
+                @click="startEditItem()"
             >
                 <i class="far fa-edit"></i>
             </a>
@@ -25,10 +25,7 @@
     </tr>
     <bucketlist-list-item-form v-else
         :_this="{
-                item: {
-                    name: item.name,
-                    description: item.description
-                },
+                item: {name: item.name, description: item.description},
                 index: index
             }"
     ></bucketlist-list-item-form>
@@ -63,23 +60,24 @@
                 this.isBeingReplaced = true;
             },
             removeItem(index) {
-                console.log('just did removeItem in Item');
-                console.log(index);
                 BucketlistEventBus.$emit('removeItemFromList', index);
             },
-            editItem() {
+            startEditItem() {
                 this.disableNewButton();
                 this.openFormFormat();
             }
         },
         created() {
+            const vm = this;
+
             BucketlistEventBus.$on('replaceItem', () => {
-                this.enableNewButton();
-                this.leaveFormFormat();
+                vm.enableNewButton();
+                vm.leaveFormFormat();
             });
+            
             BucketlistEventBus.$on('removeItemFromList', () => {
-                this.enableNewButton();
-                this.leaveFormFormat();
+                vm.enableNewButton();
+                vm.leaveFormFormat();
             });
         },
         components: {

@@ -1,6 +1,10 @@
 <template>
-    <nav class="navbar navbar-light bg-light mb-5">
-        <span class="navbar-brand">
+    <nav
+        class="navbar navbar-light bg-light mb-5"
+    >
+        <span
+            class="navbar-brand"
+            >
             {{ appTitle }}
         </span>
     </nav>

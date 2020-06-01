@@ -1,6 +1,11 @@
 <template>
-    <footer class="page-footer font-small blue fixed-bottom">
-        <div class="text-center py-3">created by
+    <footer
+        class="page-footer font-small blue fixed-bottom"
+    >
+        <div
+            class="text-center py-3"
+        >
+            created by
             <a
                 :href="[website]"
             >
