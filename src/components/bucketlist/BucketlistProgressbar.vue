@@ -20,8 +20,8 @@
         name: 'BucketlistProgressbar',
         data: function() {
             return {
-                counter: 2,
-                percentage: 20,
+                counter: 1,
+                percentage: 10,
                 isAddingAllowed: true
             };
         },

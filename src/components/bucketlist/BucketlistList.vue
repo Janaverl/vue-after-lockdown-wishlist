@@ -35,12 +35,8 @@
             return {
                 items: [
                     {
-                        name: 'example 1',
+                        name: 'example',
                         description: 'Mijn goede vriendin Jana uitnodigen voor een BBQ.',
-                    },
-                    {
-                        name: 'example 2',
-                        description: 'een avondje doorzakken op café',
                     }
                 ],
                 showEmptyInput: false
