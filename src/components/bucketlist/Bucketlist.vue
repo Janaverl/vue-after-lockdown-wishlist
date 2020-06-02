@@ -16,6 +16,8 @@
         </div>
 
       </diV>
+      <bucketlist-maximum-modal v-if="showModal"
+      ></bucketlist-maximum-modal>
     </div>
 </template>
 
@@ -23,18 +25,30 @@
   import BucketlistHeader from './BucketlistHeader.vue'
   import BucketlistProgressbar from './BucketlistProgressbar.vue'
   import BucketlistList from './BucketlistList.vue'
+  import BucketlistMaximumModal from './BucketlistMaximumModal.vue'
+  import { BucketlistEventBus } from '../../main.js';
 
   export default {
     name: 'Bucketlist',
     data: function() {
       return {
-        bucketlistTitle: '10 things I will do when Lockdown COVID-19 is over.'
+        bucketlistTitle: '10 things I will do when Lockdown COVID-19 is over.',
+        showModal: false
       };
+    },
+    created() {
+      BucketlistEventBus.$on('allowAdding', (isAllowedToAddNew) => {
+        this.showModal = !isAllowedToAddNew;
+      });
+      BucketlistEventBus.$on('closeModal', () => {
+        this.showModal = false;
+      });
     },
     components: {
       BucketlistHeader,
       BucketlistList,
-      BucketlistProgressbar
+      BucketlistProgressbar,
+      BucketlistMaximumModal
     }
   }
 </script>

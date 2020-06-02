@@ -47,6 +47,7 @@
 
             BucketlistEventBus.$on('addNewItem', () => {
                 if(!vm.isAddingAllowed){
+                    BucketlistEventBus.$emit('hasReachedMaximum');
                     return;
                 }
                 vm.counter = vm.counter + 1;
