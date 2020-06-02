@@ -1,5 +1,8 @@
 # vue-after-lockdown-wishlist
 
+## About
+This one page application is my first little vue-app.
+
 ## Project setup
 ```
 npm install
