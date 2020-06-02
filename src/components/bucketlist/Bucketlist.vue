@@ -1,6 +1,6 @@
 <template>
-  <div class="row justify-content-center">
-      <div class="col-sm-10 col-md-8 col-md-6 card">
+  <div class="row justify-content-center mb-5">
+      <div class="col-sm-10 card">
 
         <bucketlist-header
           :title = bucketlistTitle
