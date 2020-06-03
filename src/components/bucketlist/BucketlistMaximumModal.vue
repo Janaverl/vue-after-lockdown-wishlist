@@ -14,7 +14,7 @@
                     <h5
                         class="modal-title"
                     >
-                        You've added 10 items.
+                        {{title}}
                     </h5>
                     <button
                         type="button"
@@ -27,7 +27,7 @@
                 <div
                     class="modal-body"
                 >
-                    <p>Let's hope we can go out soon to do all these amazing things!</p>
+                    <p>{{text}}</p>
                 </div>
 
                 <div class="modal-footer">
@@ -36,7 +36,7 @@
                         class="btn btn-success"
                         @click="closeModal()"
                     >
-                        Got it!
+                        {{confirmText}}
                     </button>
                 </div>
             </div>
@@ -46,7 +46,20 @@
 
 <script>
     import { BucketlistEventBus } from '../../main.js';
+
+    import contentText from '../../assets/data/contentText.json';
+
     export default {
+        name: "BucketlistMaximumModal",
+        data: function() {
+            const json = contentText.warnings.reachedMaximum;
+            
+            return {
+            title: json.title,
+            text: json.text,
+            confirmText: json.confirmText
+            };
+        },
         methods: {
             closeModal() {
                 BucketlistEventBus.$emit('closeModal');

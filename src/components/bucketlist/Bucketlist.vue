@@ -27,11 +27,13 @@
   import BucketlistMaximumModal from './BucketlistMaximumModal.vue'
   import { BucketlistEventBus } from '../../main.js';
 
+  import contentText from '../../assets/data/contentText.json';
+
   export default {
     name: 'Bucketlist',
     data: function() {
       return {
-        bucketlistTitle: '10 things I will do when Lockdown COVID-19 is over.',
+        bucketlistTitle: contentText.title,
         showModal: false
       };
     },

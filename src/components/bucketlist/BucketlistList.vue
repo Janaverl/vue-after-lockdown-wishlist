@@ -29,16 +29,13 @@
     import BucketlistListItemForm from './BucketlistListItemForm.vue'
     import { BucketlistEventBus } from '../../main.js';
 
+    import bucketlistList from '../../assets/data/bucketlistList.json';
+
     export default {
         name: 'BucketlistList',
         data: function() {
             return {
-                items: [
-                    {
-                        name: 'example',
-                        description: 'Mijn goede vriendin Jana uitnodigen voor een BBQ.',
-                    }
-                ],
+                items: bucketlistList.items,
                 showEmptyInput: false
             }
         },

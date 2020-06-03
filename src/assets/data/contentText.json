@@ -1,0 +1,10 @@
+{
+    "title": "10 things I will do when Lockdown COVID-19 is over.",
+    "warnings": {
+        "reachedMaximum": {
+            "title": "You've added 10 items.",
+            "text": "Let's hope we can go out soon to do all these amazing things!",
+            "confirmText": "Got it!"
+        }
+    }
+}
