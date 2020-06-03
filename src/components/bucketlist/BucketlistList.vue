@@ -34,7 +34,7 @@
         data: function() {
             return {
                 items: [],
-                showEmptyInput: false
+                showEmptyInput: null
             }
         },
         methods: {
@@ -61,6 +61,15 @@
                 var jsonString = localStorage.getItem("myBucketlist");
                 vm.items = JSON.parse(jsonString);
             }
+            
+            if(vm.items.length == 0) {
+                vm.openNewItem();
+                vm.disableNewButton();
+            } else {
+                vm.closeNewItem();
+                vm.enableNewButton();
+            }
+
             vm.$root.$emit('getInputsLength', vm.items.length);
         },
         watch: {
