@@ -4,7 +4,6 @@
 
         <bucketlist-header
           :title = bucketlistTitle
-          :isNewActionAllowed = isNewActionAllowed
         ></bucketlist-header>
 
         <div class="card-body">
