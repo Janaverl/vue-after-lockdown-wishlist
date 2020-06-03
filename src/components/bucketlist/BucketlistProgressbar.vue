@@ -20,9 +20,9 @@
         name: 'BucketlistProgressbar',
         data: function() {
             return {
-                counter: 1,
-                percentage: 10,
-                isAddingAllowed: true
+                counter: null,
+                percentage: null,
+                isAddingAllowed: null
             };
         },
         methods: {
@@ -41,6 +41,13 @@
             isAddingAllowed: function(isAllowed) {
                 BucketlistEventBus.$emit('allowAdding', isAllowed);
             }
+        },
+        mounted() {
+            const vm = this;
+
+            this.$root.$on('getInputsLength', (data) => {
+                vm.counter = data
+            });
         },
         created() {
             const vm = this;

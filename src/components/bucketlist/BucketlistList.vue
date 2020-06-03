@@ -59,6 +59,9 @@
                 this.showEmptyInput = true;
             }
         },
+        mounted() {
+            this.$root.$emit('getInputsLength', this.items.length);
+        },
         created() {
             const vm = this;
 

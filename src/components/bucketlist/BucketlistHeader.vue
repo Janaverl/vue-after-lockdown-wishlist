@@ -10,7 +10,7 @@
                 type="button"
                 class="btn btn-success add-new float-right"
                 :disabled="disableAddNew"
-                @click="addItemCreate"
+                @click="startCreatingNewItem"
             >
                 <i class="fa fa-plus"></i> Add New
             </button>
@@ -32,9 +32,10 @@
             title: String
         },
         methods: {
-            addItemCreate() {
+            startCreatingNewItem() {
                 BucketlistEventBus.$emit('openNewItem');
-            }
+            },
+
         },
         created() {
             BucketlistEventBus.$on('toggleNewButton', (disable) => {
