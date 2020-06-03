@@ -4,6 +4,7 @@
 
         <bucketlist-header
           :title = bucketlistTitle
+          :nameIsset = "owner == 'I' ? false : true"
         ></bucketlist-header>
 
         <div class="card-body">
@@ -15,7 +16,7 @@
         </div>
 
       </diV>
-      <bucketlist-maximum-modal v-if="showModal"
+      <bucketlist-maximum-modal v-if="showModalMaximum"
       ></bucketlist-maximum-modal>
     </div>
 </template>
@@ -33,16 +34,41 @@
     name: 'Bucketlist',
     data: function() {
       return {
-        bucketlistTitle: contentText.title,
-        showModal: false
+        preTitle: contentText.title['pre'],
+        owner: contentText.owner,
+        afterTitle: contentText.title['after'],
+        bucketlistTitle: '',
+        showModalMaximum: false
       };
+    },
+    methods: {
+      setTitle() {
+        this.bucketlistTitle = `${this.preTitle} ${this.owner} ${this.afterTitle}`;
+      }
+    },
+    watch: {
+      owner() {
+        this.setTitle();
+      }
+    },
+    mounted() {
+      const vm = this;
+      if (localStorage.ownerBucketlist) {
+        var jsonString = localStorage.getItem("ownerBucketlist");
+        vm.owner = JSON.parse(jsonString);
+      }
+      this.setTitle();
     },
     created() {
       BucketlistEventBus.$on('allowAdding', (isAllowedToAddNew) => {
-        this.showModal = !isAllowedToAddNew;
+        this.showModalMaximum = !isAllowedToAddNew;
       });
       BucketlistEventBus.$on('closeModal', () => {
-        this.showModal = false;
+        this.showModalMaximum = false;
+      });
+      BucketlistEventBus.$on('saveName', (name) => {
+        this.owner = name;
+        localStorage.setItem("ownerBucketlist", JSON.stringify(name));
       });
     },
     components: {
