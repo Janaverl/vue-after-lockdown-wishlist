@@ -29,13 +29,11 @@
     import BucketlistListItemForm from './BucketlistListItemForm.vue'
     import { BucketlistEventBus } from '../../main.js';
 
-    import bucketlistList from '../../assets/data/bucketlistList.json';
-
     export default {
         name: 'BucketlistList',
         data: function() {
             return {
-                items: bucketlistList.items,
+                items: [],
                 showEmptyInput: false
             }
         },
@@ -57,7 +55,18 @@
             }
         },
         mounted() {
-            this.$root.$emit('getInputsLength', this.items.length);
+            const vm = this;
+
+            if (localStorage.myBucketlist) {
+                var jsonString = localStorage.getItem("myBucketlist");
+                vm.items = JSON.parse(jsonString);
+            }
+            vm.$root.$emit('getInputsLength', vm.items.length);
+        },
+        watch: {
+            items(items) {
+                localStorage.setItem("myBucketlist", JSON.stringify(items));
+            }
         },
         created() {
             const vm = this;
